@@ -10,7 +10,10 @@ function bindEvents(){
   $('boardSelect').addEventListener('change',()=>{ showNotification('info','Board selected', $('boardSelect').value?'Now select medium.':'Select board.'); onBoardChange(); });
   $('mediumSelect').addEventListener('change',()=>{ showNotification('info','Medium selected', $('mediumSelect').value?'Now select subject.':'Select medium.'); onMediumChange(); });
   $('subjectSelect').addEventListener('change',()=>{ showNotification('success','Subject selected', $('subjectSelect').value?'Available chapters are loading.':'Select subject.'); renderChapters(); });
-  $('btnResetFilters').onclick=resetFilters; $('btnBrowseAll').onclick=browseAll; $('btnMyProfile').onclick=snapToPersonalization;
+  $('btnResetFilters').onclick=resetFilters;
+$('btnBrowseAll').onclick=browseAll;
+const btnMyProfile = $('btnMyProfile');
+if(btnMyProfile) btnMyProfile.onclick = snapToPersonalization;
   $('formLogin').onsubmit=loginStudent; $('formSignup').onsubmit=registerStudent;
 }
 function bootDropdowns(){
