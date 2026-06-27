@@ -14,11 +14,23 @@ const Auth = {
     const id='STU'+Date.now(); const user={...profile, studentId:id, active:true}; this.saveLocalUser(user); return {ok:true, student:user, offline:true, message:'Saved locally. Connect API for Google Sheet.'};
   },
   async login(phone,password){
-    const api=await WTC_API.call('studentLogin', {phone,password});
-    if(api.ok){ this.setStudent(api.student); return api; }
+  const api=await WTC_API.call('studentLogin', {phone,password});
+
+  if(api.ok){
+    this.setStudent(api.student);
+    return api;
+  }
+
+  // Only use local fallback when API URL is missing, not when API says wrong password
+  if(api.offline && !WTC_API.WEB_APP_URL){
     const u=this.localUsers()[phone];
-    if(u && u.password===password && u.active!==false){ this.setStudent(u); return {ok:true, student:u, offline:true}; }
-    return {ok:false, message:api.message || 'Invalid phone or password'};
+    if(u && u.password===password && u.active!==false){
+      this.setStudent(u);
+      return {ok:true, student:u, offline:true};
+    }
+  }
+
+  return {ok:false, message:api.message || 'Invalid phone or password'};
   },
   async adminLogin(phone,password){
     const api=await WTC_API.call('adminLogin', {phone,password});
