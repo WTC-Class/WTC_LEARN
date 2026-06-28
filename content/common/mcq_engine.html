@@ -1,1 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>WTC Learn | MCQ Engine V2</title>
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root{--mcq-primary:#4f46e5;--mcq-dark:#0f172a;--mcq-soft:#eef2ff;--mcq-line:#e5e7eb;--mcq-ok:#059669;--mcq-warn:#d97706;--mcq-bad:#dc2626}
+    body{background:#f8fafc}.mcq-shell{max-width:1180px;margin:0 auto;padding:18px 14px 42px}.mcq-top{background:linear-gradient(120deg,#1d4ed8,#4f46e5,#312e81);color:#fff;border-radius:24px;padding:18px;box-shadow:0 18px 50px rgba(15,23,42,.18)}
+    .mcq-top-grid{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}.mcq-title h1{margin:0;font-size:26px}.mcq-title p{margin:6px 0 0;color:#dbe4ff}.mcq-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.mcq-pill{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:7px 11px;font-size:12px;font-weight:800}.timer{background:#111827;color:#fff;border-radius:18px;padding:14px 18px;text-align:center;min-width:135px}.timer strong{display:block;font-size:25px}.mcq-layout{display:grid;grid-template-columns:1fr 290px;gap:18px;margin-top:18px}.mcq-card{background:#fff;border:1px solid var(--mcq-line);border-radius:22px;box-shadow:0 10px 30px rgba(15,23,42,.07);padding:20px}.mcq-sidebar{position:sticky;top:14px;height:max-content}.mode-row{display:flex;gap:8px;flex-wrap:wrap}.mode-btn{border:1px solid #c7d2fe;background:#fff;color:#3730a3;border-radius:999px;padding:9px 13px;font-weight:900;cursor:pointer}.mode-btn.active{background:#4f46e5;color:#fff}.group-box{border:1px solid #c7d2fe;background:#f8faff;border-radius:18px;padding:16px;margin-bottom:16px}.group-box h3{margin:0 0 8px;color:#312e81}.group-content{white-space:pre-wrap;line-height:1.65;color:#334155}.group-image{width:100%;max-height:360px;object-fit:contain;background:#fff;border:1px solid #e5e7eb;border-radius:14px;margin-top:12px}.data-table-wrap{overflow:auto;margin-top:12px}.data-table-wrap table{width:100%;border-collapse:collapse;background:#fff}.data-table-wrap th,.data-table-wrap td{border:1px solid #e5e7eb;padding:8px;text-align:left}.q-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}.q-no{background:#eef2ff;color:#3730a3;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:900}.q-text{font-size:20px;line-height:1.45;font-weight:850;color:#111827;margin:10px 0 16px}.option{display:flex;gap:12px;align-items:flex-start;border:1px solid #e5e7eb;border-radius:16px;padding:13px;margin:10px 0;cursor:pointer;transition:.18s;background:#fff}.option:hover{border-color:#818cf8;background:#f8faff}.option.selected{border-color:#4f46e5;background:#eef2ff}.option.correct{border-color:#059669;background:#ecfdf5}.option.wrong{border-color:#dc2626;background:#fef2f2}.option-key{width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#f1f5f9;font-weight:900}.option-text{flex:1;line-height:1.45}.explanation{display:none;margin-top:14px;border-left:5px solid #059669;background:#ecfdf5;border-radius:14px;padding:13px;color:#064e3b}.explanation.show{display:block}.nav-row{display:flex;justify-content:space-between;gap:10px;margin-top:18px;flex-wrap:wrap}.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px}.pal-btn{border:0;border-radius:12px;padding:9px 0;font-weight:900;cursor:pointer;background:#e2e8f0;color:#334155}.pal-btn.current{outline:3px solid #4f46e5}.pal-btn.answered{background:#dcfce7;color:#166534}.pal-btn.review{background:#fef3c7;color:#92400e}.legend{display:grid;gap:8px;margin-top:14px;font-size:12px;color:#64748b}.legend span{display:flex;gap:8px;align-items:center}.dot{width:13px;height:13px;border-radius:50%;background:#e2e8f0}.dot.answered{background:#22c55e}.dot.review{background:#f59e0b}.result-box{text-align:center}.score-big{font-size:52px;font-weight:1000;color:#4f46e5;margin:12px 0}.result-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}.result-mini{background:#f8fafc;border:1px solid #e5e7eb;border-radius:16px;padding:14px}.result-mini strong{font-size:22px;display:block}.hidden{display:none!important}.loading{padding:36px;text-align:center;color:#64748b}.review-list{margin-top:16px;text-align:left}.review-item{border:1px solid #e5e7eb;border-radius:16px;padding:14px;margin:10px 0;background:#fff}.review-item strong{display:block;margin-bottom:6px}.status-line{font-size:13px;color:#64748b;margin-top:8px}.btn-full{width:100%;justify-content:center;margin-top:10px}@media(max-width:880px){.mcq-top-grid,.mcq-layout,.result-grid{grid-template-columns:1fr}.mcq-sidebar{position:static}.timer{width:100%}.q-text{font-size:17px}.palette{grid-template-columns:repeat(6,1fr)}}
+  </style>
+</head>
+<body>
+  <div id="toastContainer" class="toast-container"></div>
+  <main class="mcq-shell">
+    <section class="mcq-top">
+      <div class="mcq-top-grid">
+        <div class="mcq-title">
+          <h1><i class="fa-solid fa-list-check"></i> WTC Learn MCQ Engine V2</h1>
+          <p id="testSubtitle">Loading test details...</p>
+          <div class="mcq-meta" id="testMeta"></div>
+        </div>
+        <div class="timer"><span>Time Left</span><strong id="timerText">--:--</strong></div>
+      </div>
+    </section>
 
+    <section id="loadingView" class="mcq-card loading"><i class="fa-solid fa-spinner fa-spin"></i> Loading questions from MCQ_DATA...</section>
+
+    <section id="testView" class="mcq-layout hidden">
+      <div class="mcq-card">
+        <div class="mode-row">
+          <button id="examModeBtn" class="mode-btn active" onclick="setMode('exam')"><i class="fa-solid fa-clock"></i> Exam Mode</button>
+          <button id="learnModeBtn" class="mode-btn" onclick="setMode('learning')"><i class="fa-solid fa-lightbulb"></i> Learning Mode</button>
+        </div>
+        <div id="groupBlock"></div>
+        <div class="q-head">
+          <span class="q-no" id="questionNumber">Question 1</span>
+          <span class="q-no" id="difficultyBadge">Easy</span>
+        </div>
+        <div id="questionText" class="q-text"></div>
+        <div id="optionsBox"></div>
+        <div id="explanationBox" class="explanation"></div>
+        <div class="nav-row">
+          <button class="btn btn-light" onclick="prevQuestion()"><i class="fa-solid fa-arrow-left"></i> Previous</button>
+          <button class="btn btn-amber" onclick="toggleReview()"><i class="fa-solid fa-bookmark"></i> Mark Review</button>
+          <button class="btn btn-primary" onclick="nextQuestion()">Next <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <aside class="mcq-card mcq-sidebar">
+        <h3 style="margin-top:0">Question Palette</h3>
+        <div id="palette" class="palette"></div>
+        <div class="legend">
+          <span><i class="dot"></i> Not answered</span>
+          <span><i class="dot answered"></i> Answered</span>
+          <span><i class="dot review"></i> Marked for review</span>
+        </div>
+        <div class="status-line" id="attemptStatus"></div>
+        <button class="btn btn-red btn-full" onclick="confirmSubmit()"><i class="fa-solid fa-paper-plane"></i> Submit Test</button>
+      </aside>
+    </section>
+
+    <section id="resultView" class="mcq-card result-box hidden"></section>
+  </main>
+
+  <script src="../../assets/js/toast.js"></script>
+  <script src="../../assets/js/auth.js"></script>
+  <script src="../../assets/js/api.js"></script>
+  <script>
+    const qp = new URLSearchParams(location.search);
+    const testInfo = {
+      class: qp.get('class') || qp.get('cls') || '10',
+      board: qp.get('board') || 'CBSE',
+      medium: qp.get('medium') || 'English Medium',
+      subject: qp.get('subject') || 'Science',
+      chapter: qp.get('chapter') || '1',
+      limit: Number(qp.get('limit') || 20),
+      minutes: Number(qp.get('minutes') || 20)
+    };
+    let questions=[], current=0, answers={}, review={}, mode='exam', secondsLeft=testInfo.minutes*60, timerId=null, startedAt=Date.now();
+    const $=id=>document.getElementById(id);
+    document.addEventListener('DOMContentLoaded', init);
+
+    async function init(){
+      $('testSubtitle').textContent = `${testInfo.board} • Class ${testInfo.class} • ${testInfo.medium} • ${testInfo.subject} • Chapter ${testInfo.chapter}`;
+      $('testMeta').innerHTML = ['Standard MCQ','Grouped Passage/Image/Table','Auto Marks Save','Mobile Friendly'].map(x=>`<span class="mcq-pill">${x}</span>`).join('');
+      await loadQuestions();
+    }
+
+    async function loadQuestions(){
+      const res = await WTC_API.call('getMCQQuestions', testInfo);
+      if(res.ok && Array.isArray(res.questions) && res.questions.length){
+        questions = normalizeQuestions(res.questions).slice(0,testInfo.limit);
+      }else{
+        questions = demoQuestions();
+        showNotification('warning','Demo mode','API getMCQQuestions is not patched yet. Showing sample questions.');
+      }
+      $('loadingView').classList.add('hidden');
+      $('testView').classList.remove('hidden');
+      buildPalette(); renderQuestion(); startTimer();
+    }
+
+    function normalizeQuestions(rows){
+      return rows.filter(q=>String(q.Enabled||'TRUE').toUpperCase()!=='FALSE').map((q,i)=>({
+        id:q.QuestionID || q.ID || `Q${i+1}`,
+        questionType:String(q.QuestionType||'NORMAL').toUpperCase(),
+        groupId:q.GroupID||'', groupType:String(q.GroupType||'').toUpperCase(), groupTitle:q.GroupTitle||'', groupContent:q.GroupContent||'', groupImageUrl:q.GroupImageURL||'',
+        question:q.Question||'', options:{A:q.OptionA||'',B:q.OptionB||'',C:q.OptionC||'',D:q.OptionD||''},
+        correct:String(q.CorrectAnswer||q.Answer||'').trim().toUpperCase(), explanation:q.Explanation||'', difficulty:q.Difficulty||'Easy', marks:Number(q.Marks||1), topic:q.Topic||''
+      }));
+    }
+
+    function renderGroup(q){
+      if(!q.groupId){ $('groupBlock').innerHTML=''; return; }
+      const first = questions.find(x=>x.groupId===q.groupId) || q;
+      let media='';
+      if(first.groupImageUrl) media += `<img class="group-image" src="${escapeHtml(first.groupImageUrl)}" alt="Group image">`;
+      if(first.groupType==='TABLE') media += `<div class="data-table-wrap">${first.groupContent}</div>`;
+      else media += `<div class="group-content">${escapeHtml(first.groupContent)}</div>`;
+      $('groupBlock').innerHTML = `<div class="group-box"><h3>${escapeHtml(first.groupTitle || first.groupType || 'Common Information')}</h3>${media}</div>`;
+    }
+
+    function renderQuestion(){
+      const q=questions[current]; renderGroup(q);
+      $('questionNumber').textContent=`Question ${current+1} of ${questions.length}`;
+      $('difficultyBadge').textContent=q.difficulty;
+      $('questionText').textContent=q.question;
+      $('optionsBox').innerHTML=['A','B','C','D'].map(k=>`<div class="option ${answers[q.id]===k?'selected':''}" onclick="selectAnswer('${k}')"><span class="option-key">${k}</span><span class="option-text">${escapeHtml(q.options[k])}</span></div>`).join('');
+      $('explanationBox').className='explanation'; $('explanationBox').innerHTML='';
+      if(mode==='learning' && answers[q.id]) showLearningFeedback();
+      updatePalette(); updateStatus();
+    }
+
+    function selectAnswer(k){
+      const q=questions[current]; answers[q.id]=k;
+      if(mode==='learning') showLearningFeedback();
+      renderQuestion();
+    }
+
+    function showLearningFeedback(){
+      const q=questions[current]; const sel=answers[q.id];
+      document.querySelectorAll('.option').forEach((el,idx)=>{ const key=['A','B','C','D'][idx]; if(key===q.correct)el.classList.add('correct'); if(sel===key && sel!==q.correct)el.classList.add('wrong'); });
+      $('explanationBox').innerHTML=`<strong>${sel===q.correct?'Correct':'Correct Answer: '+q.correct}</strong><br>${escapeHtml(q.explanation||'Explanation will be added soon.')}`;
+      $('explanationBox').classList.add('show');
+    }
+
+    function buildPalette(){ $('palette').innerHTML=questions.map((_,i)=>`<button class="pal-btn" onclick="goQuestion(${i})">${i+1}</button>`).join(''); }
+    function updatePalette(){ document.querySelectorAll('.pal-btn').forEach((b,i)=>{ const q=questions[i]; b.classList.toggle('current',i===current); b.classList.toggle('answered',!!answers[q.id]); b.classList.toggle('review',!!review[q.id]); }); }
+    function updateStatus(){ const a=Object.keys(answers).length, r=Object.keys(review).length; $('attemptStatus').textContent=`Answered: ${a}/${questions.length} • Review: ${r}`; }
+    function goQuestion(i){ current=i; renderQuestion(); }
+    function nextQuestion(){ if(current<questions.length-1){current++;renderQuestion();} else confirmSubmit(); }
+    function prevQuestion(){ if(current>0){current--;renderQuestion();} }
+    function toggleReview(){ const id=questions[current].id; review[id]=!review[id]; if(!review[id])delete review[id]; renderQuestion(); }
+    function setMode(m){ mode=m; $('examModeBtn').classList.toggle('active',m==='exam'); $('learnModeBtn').classList.toggle('active',m==='learning'); renderQuestion(); showNotification('info',m==='exam'?'Exam Mode':'Learning Mode',m==='exam'?'Answers hidden until submit.':'Instant feedback enabled.'); }
+
+    function startTimer(){ updateTimer(); timerId=setInterval(()=>{ secondsLeft--; updateTimer(); if(secondsLeft<=0){ clearInterval(timerId); submitTest(true); } },1000); }
+    function updateTimer(){ const m=Math.max(0,Math.floor(secondsLeft/60)), s=Math.max(0,secondsLeft%60); $('timerText').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`; }
+    function confirmSubmit(){ const unanswered=questions.length-Object.keys(answers).length; if(confirm(`Submit test now?\nUnanswered questions: ${unanswered}`)) submitTest(false); }
+
+    async function submitTest(auto=false){
+      if(timerId) clearInterval(timerId);
+      let score=0,total=0; const wrong=[];
+      questions.forEach(q=>{ total+=q.marks; if(answers[q.id]===q.correct) score+=q.marks; else wrong.push(q); });
+      const percent= total ? Math.round(score*100/total) : 0;
+      const student = Auth.getStudent ? Auth.getStudent() : null;
+      if(student){
+        await WTC_API.call('saveMarks',{ studentId:student.studentId, subject:testInfo.subject, chapter:testInfo.chapter, type:'MCQ', score, total, remarks:`${testInfo.board} | Class ${testInfo.class} | ${testInfo.medium} | Time ${Math.round((Date.now()-startedAt)/1000)} sec | Wrong ${wrong.map(w=>w.id).join(',')}` });
+      }
+      showResult(score,total,percent,wrong,auto,!!student);
+    }
+
+    function showResult(score,total,percent,wrong,auto,saved){
+      $('testView').classList.add('hidden');
+      $('resultView').classList.remove('hidden');
+      const msg=percent>=80?'Excellent':percent>=60?'Good Improvement':percent>=40?'Needs Practice':'Revise Chapter Again';
+      $('resultView').innerHTML=`<h2>${auto?'Time Up!':'Test Submitted'}</h2><div class="score-big">${percent}%</div><h3>${msg}</h3><div class="result-grid"><div class="result-mini"><strong>${score}</strong>Score</div><div class="result-mini"><strong>${total}</strong>Total</div><div class="result-mini"><strong>${questions.length-wrong.length}</strong>Correct</div><div class="result-mini"><strong>${wrong.length}</strong>Wrong</div></div><p>${saved?'Marks saved to WTC Learn MARKS sheet.':'Login required to save marks.'}</p><button class="btn btn-primary" onclick="location.reload()">Retry Test</button><a class="btn btn-light" href="../../index.html">Back to Student Portal</a><div class="review-list"><h3>Review Wrong Questions</h3>${wrong.length?wrong.map(q=>`<div class="review-item"><strong>${escapeHtml(q.question)}</strong><p>Your answer: ${answers[q.id]||'Not answered'} | Correct: ${q.correct}</p><p>${escapeHtml(q.explanation||'Explanation will be added soon.')}</p></div>`).join(''):'<p>Great! No wrong questions.</p>'}</div>`;
+    }
+
+    function escapeHtml(v){ return String(v||'').replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+    function demoQuestions(){ return normalizeQuestions([
+      {QuestionID:'DEMO1',Class:'10',Board:'CBSE',Medium:'English Medium',Subject:'Science',Chapter:'1',QuestionType:'GROUP',GroupID:'CASE001',GroupType:'PASSAGE',GroupTitle:'Case Study: Chemical Reaction',GroupContent:'A student adds zinc granules to dilute sulphuric acid. Bubbles are observed and the test tube becomes warm.',Question:'Which gas is evolved?',OptionA:'Hydrogen',OptionB:'Oxygen',OptionC:'Nitrogen',OptionD:'Carbon dioxide',CorrectAnswer:'A',Explanation:'Zinc reacts with dilute acid to form salt and hydrogen gas.',Difficulty:'Easy',Marks:1,Enabled:'TRUE'},
+      {QuestionID:'DEMO2',QuestionType:'GROUP',GroupID:'CASE001',GroupType:'PASSAGE',GroupTitle:'Case Study: Chemical Reaction',GroupContent:'A student adds zinc granules to dilute sulphuric acid. Bubbles are observed and the test tube becomes warm.',Question:'This reaction is mainly a:',OptionA:'Combination reaction',OptionB:'Displacement reaction',OptionC:'Decomposition reaction',OptionD:'Neutral reaction',CorrectAnswer:'B',Explanation:'Zinc displaces hydrogen from acid.',Difficulty:'Medium',Marks:1,Enabled:'TRUE'},
+      {QuestionID:'DEMO3',QuestionType:'NORMAL',Question:'What is the correct meaning of oxidation?',OptionA:'Gain of oxygen',OptionB:'Loss of oxygen',OptionC:'Gain of hydrogen',OptionD:'No change',CorrectAnswer:'A',Explanation:'Oxidation is gain of oxygen or loss of hydrogen.',Difficulty:'Easy',Marks:1,Enabled:'TRUE'}
+    ]); }
+    window.setMode=setMode; window.prevQuestion=prevQuestion; window.nextQuestion=nextQuestion; window.toggleReview=toggleReview; window.goQuestion=goQuestion; window.confirmSubmit=confirmSubmit;
+  </script>
+</body>
+          </html>
+          
