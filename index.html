@@ -17,6 +17,33 @@
 <main class="container hero">
   <section class="card"><h2 class="section-title"><i class="fa-solid fa-graduation-cap"></i> Student Learning Portal</h2><div class="grid grid-4"><div class="feature-card"><i class="fa-solid fa-book-open"></i><h3>Learn Chapters</h3><p>Open chapter lessons from GitHub Pages.</p></div><div class="feature-card"><i class="fa-solid fa-list-check"></i><h3>Practice MCQ</h3><p>Practice and save marks for improvement.</p></div><div class="feature-card"><i class="fa-solid fa-pen-nib"></i><h3>Answer Writing</h3><p>Class 10 descriptive answer practice.</p></div><div class="feature-card"><i class="fa-solid fa-flask"></i><h3>Digital Lab</h3><p>Science-only interactive experiments.</p></div></div></section>
   <div id="personalizationStatusBanner" class="banner"><span id="bannerText"></span><button id="btnBrowseAll" class="btn btn-primary btn-small">Browse Other Courses</button></div>
+  <section id="progressDashboard" class="card hidden" style="margin-top:18px">
+  <h2 class="section-title">
+    <i class="fa-solid fa-chart-line"></i> My Learning Progress
+  </h2>
+
+  <div class="grid grid-4">
+    <div class="feature-card">
+      <h3 id="mcqCount">0</h3>
+      <p>MCQ Tests Attempted</p>
+    </div>
+
+    <div class="feature-card">
+      <h3 id="answerCount">0</h3>
+      <p>Answer Writing Attempts</p>
+    </div>
+
+    <div class="feature-card">
+      <h3 id="avgPercent">0%</h3>
+      <p>Average Score</p>
+    </div>
+
+    <div class="feature-card">
+      <h3 id="improvementStatus">🚀</h3>
+      <p>Improvement Status</p>
+    </div>
+  </div>
+  </section>
   <section class="card" style="margin-top:18px"><div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><h2 class="section-title">Course Selector</h2><button id="btnResetFilters" class="btn btn-red btn-small hidden">Reset</button></div><div class="form-grid"><div><label>Class</label><select id="classSelect"></select></div><div><label>Board</label><select id="boardSelect" disabled></select></div><div><label>Medium</label><select id="mediumSelect" disabled><option>-- Select Medium --</option></select></div><div><label>Subject</label><select id="subjectSelect" disabled><option>-- Select Subject --</option></select></div></div></section>
   <section id="chapterContainer" class="chapters hidden"><h2 class="section-title"><i class="fa-solid fa-layer-group"></i> Course Chapters</h2><div id="chapterList"></div></section>
   <div id="placeholderView" class="placeholder" style="margin-top:18px"><i class="fa-solid fa-folder-open" style="font-size:34px"></i><p>Please select Class → Board → Medium → Subject.</p></div>
