@@ -33,7 +33,7 @@ function renderAuthArea(){
 function toggleAuthModal(show){ $('authModal').classList.toggle('open',!!show); }
 function switchAuthTab(tab){ const login=tab==='login'; $('loginView').classList.toggle('hidden',!login); $('signupView').classList.toggle('hidden',login); $('tabLogin').classList.toggle('active',login); $('tabSignup').classList.toggle('active',!login); }
 async function registerStudent(e){ e.preventDefault(); const profile={ name:$('regName').value.trim(), phone:$('regPhone').value.trim(), password:$('regPassword').value, class:$('regClass').value, board:$('regBoard').value, medium:$('regMedium').value }; const res=await Auth.register(profile); if(res.ok){ showNotification('success','Profile created','Now login with your phone and password.'); switchAuthTab('login'); $('loginPhone').value=profile.phone; } else showNotification('error','Registration failed',res.message); }
-async function loginStudent(e){ e.preventDefault(); const res=await Auth.login($('loginPhone').value.trim(), $('loginPassword').value); if(res.ok){ toggleAuthModal(false); renderAuthArea(); showNotification('success','Login successful','Your personalized dashboard is ready.'); } else showNotification('error','Login failed',res.message); }
+async function loginStudent(e){ e.preventDefault(); const res=await Auth.login($('loginPhone').value.trim(), $('loginPassword').value); if(res.ok){ toggleAuthModal(false); renderAuthArea(); loadStudentProgress(); showNotification('success','Login successful','Your personalized dashboard is ready.'); } else showNotification('error','Login failed',res.message); }
 function logoutStudent(){ Auth.clearStudent(); currentUser=null; $('personalizationStatusBanner').style.display='none'; renderAuthArea(); resetFilters(); showNotification('info','Logged out','Student session closed.'); }
 function applyProfile(){ if(!currentUser)return; activeBrowsingMode='personal'; $('classSelect').value=currentUser.class; onClassChange(); $('boardSelect').value=currentUser.board; onBoardChange(); $('mediumSelect').value=currentUser.medium||'English Medium'; onMediumChange(); $('classSelect').disabled=true; $('boardSelect').disabled=true; $('mediumSelect').disabled=true; $('personalizationStatusBanner').style.display='flex'; $('bannerText').textContent=`Personalized: Class ${currentUser.class} • ${currentUser.board} • ${currentUser.medium||'English Medium'}`; }
 function browseAll(){ activeBrowsingMode='all'; ['classSelect','boardSelect','mediumSelect'].forEach(id=>$(id).disabled=false); $('personalizationStatusBanner').style.display='none'; showNotification('info','Browse mode','You can browse other courses now.'); }
@@ -42,4 +42,39 @@ function renderChapters(){ const cls=$('classSelect').value,b=$('boardSelect').v
 function chapterNode(ch,i,cls,subject){ const div=document.createElement('div'); div.className='chapter'; const body=featureButtons(ch,cls,subject); div.innerHTML=`<div class="chapter-head" onclick="toggleChapter(${i})"><div><span class="badge">Chapter ${ch.number}</span><div class="chapter-title">${ch.title}</div></div><span>⌄</span></div><div id="chBody${i}" class="chapter-body"><div class="button-row">${body}</div></div>`; return div; }
 function featureButtons(ch,cls,subject){ const f=ch.features||{}; const map=[ ['lesson','Lesson','📚','btn-primary',true], ['mcq','MCQ','📝','btn-amber',true], ['practice','Practice','🎯','btn-soft',true], ['audio','Audio','🔊','btn-soft',true], ['digitalLab','Digital Lab','🔬','btn-green',subject==='Science'], ['grammar','Grammar','🧩','btn-green',subject==='English'], ['answerWriting','Answer Writing','✍️','btn-dark',cls==='10'] ]; return map.filter(x=>x[4]).map(([key,label,ic,clsName])=> f[key]?`<a class="btn ${clsName} btn-small" href="${f[key]}" target="_blank">${ic} ${label}</a>`:`<button class="btn btn-light btn-small" onclick="showNotification('warning','Coming soon','${label} will be added soon.')">${ic} ${label}</button>`).join(''); }
 function toggleChapter(i){ document.querySelectorAll('.chapter-body').forEach((el,idx)=>{ if(idx!==i)el.classList.remove('open') }); $('chBody'+i).classList.toggle('open'); }
+async function loadStudentProgress(){
+  const student = Auth.getStudent();
+  if(!student) return;
+
+  const res = await WTC_API.call('getStudentProgress',{
+    studentId: student.studentId
+  });
+
+  if(!res.ok) return;
+
+  const marks = res.marks || [];
+
+  const mcq = marks.filter(m => m.Type === 'MCQ');
+  const answer = marks.filter(m => m.Type === 'ANSWER');
+
+  const avg = marks.length
+    ? Math.round(
+        marks.reduce((sum,m)=>sum+Number(m.Percent||0),0)
+        / marks.length
+      )
+    : 0;
+
+  $('mcqCount').textContent = mcq.length;
+  $('answerCount').textContent = answer.length;
+  $('avgPercent').textContent = avg + '%';
+
+  let status = '🚀';
+  if(avg >= 80) status = 'Excellent';
+  else if(avg >= 60) status = 'Improving';
+  else if(avg > 0) status = 'Needs Practice';
+
+  $('improvementStatus').textContent = status;
+
+  $('progressDashboard').classList.remove('hidden');
+}
 window.toggleAuthModal=toggleAuthModal; window.switchAuthTab=switchAuthTab; window.logoutStudent=logoutStudent; window.snapToPersonalization=snapToPersonalization; window.toggleChapter=toggleChapter;
